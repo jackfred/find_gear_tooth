@@ -197,7 +197,6 @@ int main(int argc, char** argv)
 
 		// Wait for a keystroke in the window
 		waitKey(30);
-		cout << "good" << endl;
 
 	}
 	return 0;

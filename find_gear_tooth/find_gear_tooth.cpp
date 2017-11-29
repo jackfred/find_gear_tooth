@@ -11,13 +11,7 @@
 #include <stdlib.h>  
 #include <stdio.h>  
 
-//for sleep microseconds
-#include <chrono>
-#include <thread>
-
 #include <visp3/core/vpConfig.h>
-#include <visp3/gui/vpDisplayOpenCV.h>
-#include <visp3/gui/vpDisplayX.h>
 #include <visp3/blob/vpDot2.h>
 
 using namespace cv;
@@ -133,15 +127,15 @@ int main(int argc, char** argv)
 		cap >> src;
 
 		namedWindow("threshold");
-		createTrackbar("threshold", "threshold", &change, 255);
+		createTrackbar("threshold", "thr", &change, 255);
 
 		Mat thr(src.rows, src.cols, CV_8UC1);
 		Mat dst(src.rows, src.cols, CV_8UC3, Scalar::all(0));
 		Mat test_for_read_contours_from_file(src.rows, src.cols, CV_8UC3, Scalar::all(0));
 		cvtColor(src, thr, CV_BGR2GRAY); // Convert to gray
 		imshow("gray", thr);
-		//threshold(thr, thr, change, 255, THRESH_BINARY_INV); // Threshold the gray for dark object and light background
-		threshold(thr, thr, change, 255, THRESH_BINARY); // Threshold the gray for light object and dark background
+		threshold(thr, thr, change, 255, THRESH_BINARY_INV); // Threshold the gray for dark object and light background
+		//threshold(thr, thr, change, 255, THRESH_BINARY); // Threshold the gray for light object and dark background
 		imshow("thr", thr);
 
 		vector<vector<Point>> contours,contours_for_center; // Vector for storing contour
@@ -193,7 +187,7 @@ int main(int argc, char** argv)
 		//Sketch gear tooth
 		for (int i = 0; i < contours_from_file.size(); i++)
 		{
-			sketch_gear_tooth(src, contours_from_file[i]);
+			//sketch_gear_tooth(src, contours_from_file[i]);
 		}
 		
 		//imshow("Happy Contour from file", test_for_read_contours_from_file);
@@ -203,6 +197,7 @@ int main(int argc, char** argv)
 
 		// Wait for a keystroke in the window
 		waitKey(30);
+		cout << "good" << endl;
 
 	}
 	return 0;

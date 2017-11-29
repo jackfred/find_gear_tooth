@@ -11,6 +11,10 @@
 #include <stdlib.h>  
 #include <stdio.h>  
 
+//for sleep microseconds
+#include <chrono>
+#include <thread>
+
 #include <visp3/core/vpConfig.h>
 #include <visp3/blob/vpDot2.h>
 
@@ -187,7 +191,7 @@ int main(int argc, char** argv)
 		//Sketch gear tooth
 		for (int i = 0; i < contours_from_file.size(); i++)
 		{
-			//sketch_gear_tooth(src, contours_from_file[i]);
+			sketch_gear_tooth(src, contours_from_file[i]);
 		}
 		
 		//imshow("Happy Contour from file", test_for_read_contours_from_file);

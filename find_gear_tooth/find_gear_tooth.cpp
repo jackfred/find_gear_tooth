@@ -111,28 +111,26 @@ bool drawContourCenter(Mat &src, vector<Point> contour)
 	cout << center.x << " " << center.y << endl;
 	vpImageConvert::convert(I, src);
 	*/
-	circle(src, center, 10, Scalar(255, 0, 0), 5, CV_AA, 0);
+	circle(src, center, 5, Scalar(255, 0, 0), 1, CV_AA, 0);
 
 	return true;
 }
 
 int main(int argc, char** argv)
 {
-	int largest_area = 0;
-	int largest_contour_index = 0;
-	vector<Rect> bounding_rect;
 	VideoCapture cap(0);
 	Mat src;
 
 	while (1){
 		cap >> src;
 
-		namedWindow("threshold");
+		//Track bar for threshold changing
+		namedWindow("thr");
 		createTrackbar("threshold", "thr", &change, 255);
 
 		Mat thr(src.rows, src.cols, CV_8UC1);
 		Mat dst(src.rows, src.cols, CV_8UC3, Scalar::all(0));
-		Mat test_for_read_contours_from_file(src.rows, src.cols, CV_8UC3, Scalar::all(0));
+		
 		cvtColor(src, thr, CV_BGR2GRAY); // Convert to gray
 		imshow("gray", thr);
 		threshold(thr, thr, change, 255, THRESH_BINARY_INV); // Threshold the gray for dark object and light background
@@ -175,6 +173,7 @@ int main(int argc, char** argv)
 		
 		/*
 		//Test for yml input/output
+		Mat test_for_read_contours_from_file(src.rows, src.cols, CV_8UC3, Scalar::all(0));
 		color = Scalar(0, 128, 128);
 		color2 = Scalar(128, 128, 0);
 		for (int i = 0; i < contours_from_file.size(); i++) // Iterate through each contour
